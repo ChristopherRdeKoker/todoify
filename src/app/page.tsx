@@ -1,11 +1,13 @@
+import { Paperback } from "@/components/Paperback";
+
 export default function Home() {
   return (
-    <main className=" bg-green-500 w-full">
-      <div className="h-[calc(100vh_-_5rem)] rounded-md justify-center flex items-center flex-col grow">
-        <form>
+    <div className="rounded-md justify-center flex items-center flex-col">
+      <form className="w-[30rem] flex flex-col gap-4">
+        <Paperback>
           <h1>Login Page</h1>
-        </form>
-      </div>
-    </main>
+        </Paperback>
+      </form>
+    </div>
   );
 }
