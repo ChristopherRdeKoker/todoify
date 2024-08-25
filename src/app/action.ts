@@ -25,7 +25,7 @@ export async function loginMutation(input: z.infer<typeof LoginSchema>) {
 
     const safeUser = {
       id: user?.id,
-      name: user?.name,
+      // name: user?.name,
     };
 
     return { success: true, user: safeUser };
