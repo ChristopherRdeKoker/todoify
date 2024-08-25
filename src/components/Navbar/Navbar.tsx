@@ -1,6 +1,6 @@
 "use client";
-import { NavButtons } from "@/app/[userId]/homepage/NavButtons";
-import { Container } from "./Container";
+import { Container } from "../Container";
+import { NavButtons } from "./NavButtons";
 
 type NavbarProps = {
   userId: number;

@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { getUserQuery } from "./actions";
 type CreateTodoParams = {
   userId: number;
