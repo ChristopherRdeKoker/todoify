@@ -30,7 +30,7 @@ export function Button({
       {...rest}
       disabled={isDisabled}
       className={twMerge(
-        "flex h-12 min-w-[6rem] text-lg rounded-lg max-w-[14.375rem] grow items-center justify-center gap-2 transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-75  border-[0.1rem] ",
+        "flex h-12 min-w-[4rem] text-lg rounded-lg max-w-[14.375rem] grow items-center justify-center gap-2 transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-75  border-[0.1rem] ",
         buttonVariant[variant],
         className
       )}

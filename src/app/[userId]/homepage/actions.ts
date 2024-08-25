@@ -15,7 +15,6 @@ export async function getUserQuery(input: number) {
 
     const { password, email, ...safeQuery } = userQuery;
 
-    // let isParent =
     return {
       success: true,
       userQuery: safeQuery,
