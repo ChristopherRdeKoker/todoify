@@ -1,7 +1,18 @@
-export function Navbar() {
+import { NavButtons } from "@/app/[userId]/homepage/NavButtons";
+import { Container } from "./Container";
+
+type NavbarProps = {
+  userId: number;
+  userName: string;
+  isParent: boolean;
+};
+export function Navbar({ isParent = false, userId, userName }: NavbarProps) {
   return (
-    <div className="h-[4rem] bg-slate-300 border-[0.1rem] border-slate-400 text-slate-500 hover:border-slate-800 select-none px-[3rem] cursor-pointer bo flex flex-row justify-between items-center p-4">
-      <div className="text-2xl font-bold text-slate-600">Welcome</div>
+    <div>
+      <Container>
+        <p>{userName && `Welcome back ${userName}`}</p>
+      </Container>
+      <NavButtons userId={userId} isParent={isParent} />
     </div>
   );
 }

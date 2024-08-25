@@ -13,10 +13,12 @@ export async function getUserQuery(input: number) {
       return { error: "No user data found" };
     }
 
+    const { password, email, ...safeQuery } = userQuery;
+
     // let isParent =
     return {
       success: true,
-      userQuery,
+      userQuery: safeQuery,
     };
   } catch (err) {
     console.log(err);

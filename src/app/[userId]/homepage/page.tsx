@@ -1,12 +1,12 @@
 import { Container } from "@/components/Container";
 import { getUserQuery } from "./actions";
 import { NavButtons } from "./NavButtons";
+import { Navbar } from "@/components/Navbar";
 
 type HomepageParams = {
   userId: number;
 };
 export default async function Homepage({ params }: { params: HomepageParams }) {
-  // return <div>{`Successfully logged in ${params?.userId}`}</div>;
   const getUser = await getUserQuery(+params?.userId);
   const { error, success, userQuery } = getUser;
 
@@ -14,10 +14,7 @@ export default async function Homepage({ params }: { params: HomepageParams }) {
   if (!userQuery) return <p>fetching...</p>;
   return (
     <div>
-      <Container>
-        <p>{userQuery?.name && `Welcome back ${userQuery?.name}`}</p>
-      </Container>
-      <NavButtons userId={userQuery?.id} isParent={userQuery?.is_parent ?? false} />
+      <Navbar isParent={userQuery?.is_parent ?? false} userId={userQuery?.id} userName={userQuery?.name ?? ""} />
     </div>
   );
 }
