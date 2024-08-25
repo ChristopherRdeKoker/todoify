@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { getUserQuery } from "../homepage/actions";
+import { getUserQuery } from "./actions";
 
 type ListToDoParams = {
   userId: number;
