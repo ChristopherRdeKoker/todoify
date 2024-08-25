@@ -1,6 +1,4 @@
-import { Container } from "@/components/Container";
 import { getUserQuery } from "./actions";
-import { NavButtons } from "../../../components/Navbar/NavButtons";
 import { Navbar } from "@/components/Navbar/Navbar";
 
 type HomepageParams = {
