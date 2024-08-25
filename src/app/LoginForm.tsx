@@ -33,7 +33,7 @@ export function LoginForm() {
   });
   return (
     <FormProvider {...formMethods}>
-      <form className="w-[30rem] flex flex-col gap-4">
+      <form className="w-[21rem] flex flex-col gap-4">
         <Paperback>
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
