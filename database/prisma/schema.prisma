@@ -8,8 +8,9 @@ datasource db {
 }
 
 model account_user {
-  id       Int    @id
-  name     String @db.VarChar(255)
-  email    String @unique
-  password String
+  id        Int      @id
+  name      String   @db.VarChar(255)
+  email     String   @unique
+  password  String
+  is_parent Boolean?
 }

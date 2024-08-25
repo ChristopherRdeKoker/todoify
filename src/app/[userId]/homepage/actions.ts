@@ -12,6 +12,8 @@ export async function getUserQuery(input: number) {
     if (!userQuery) {
       return { error: "No user data found" };
     }
+
+    // let isParent =
     return {
       success: true,
       userQuery,

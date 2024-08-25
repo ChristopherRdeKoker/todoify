@@ -35,7 +35,6 @@ export function LoginForm() {
     <FormProvider {...formMethods}>
       <form className="w-[30rem] flex flex-col gap-4">
         <Paperback>
-          <pre>{pending?.toString()}</pre>
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
           <RHFtextfield type="password" title="Password:" name="password" />

@@ -11,12 +11,13 @@ export default async function Homepage({ params }: { params: HomepageParams }) {
   const { error, success, userQuery } = getUser;
 
   if (error) return <div>{error ?? "there was an error"}</div>;
+  if (!userQuery) return <p>fetching...</p>;
   return (
     <div>
       <Container>
         <p>{userQuery?.name && `Welcome back ${userQuery?.name}`}</p>
       </Container>
-      <NavButtons />
+      <NavButtons userId={userQuery?.id} isParent={userQuery?.is_parent ?? false} />
     </div>
   );
 }
