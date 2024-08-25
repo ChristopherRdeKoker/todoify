@@ -25,7 +25,7 @@ export function LoginForm() {
       console.log("result", result);
       if (result?.error) {
       } else if (result?.success) {
-        router.push("/homepage");
+        router.push(`/${result?.user?.id}/homepage`);
       }
     } catch (error) {
       console.error("Login error:", error);
