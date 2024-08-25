@@ -1,3 +1,4 @@
+"use client";
 import { NavButtons } from "@/app/[userId]/homepage/NavButtons";
 import { Container } from "./Container";
 
