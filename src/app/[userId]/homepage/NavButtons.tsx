@@ -1,7 +1,8 @@
 "use client";
 import { Container } from "@/components/Container";
 import Link from "next/link";
-import { FaHome, FaList } from "react-icons/fa";
+import { FaHome, FaList, FaPenSquare } from "react-icons/fa";
+import { FaPenClip, FaRightFromBracket } from "react-icons/fa6";
 
 type NavButtonsProps = {
   isParent: boolean;
@@ -20,11 +21,13 @@ export function NavButtons({ isParent, userId }: NavButtonsProps) {
           </Link>
           {!!isParent && (
             <Link href={`/${userId}/createTodo`}>
-              <FaList className="w-[2.5rem] fill-gray-800 active:fill-blue-600 hover:fill-blue-400  h-[2.5rem]" />
+              <FaPenSquare className="w-[2.5rem] fill-gray-800 active:fill-blue-600 hover:fill-blue-400  h-[2.5rem]" />
             </Link>
           )}
         </section>
-        <div>123</div>
+        <Link href={`/`}>
+          <FaRightFromBracket className="w-[2.5rem] fill-gray-800 active:fill-red-600 hover:fill-red-400  h-[2.5rem]" />
+        </Link>
       </div>
     </Container>
   );
