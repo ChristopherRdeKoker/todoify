@@ -19,10 +19,12 @@ export default async function CreateTodo({ params }: { params: CreateTodoParams 
   return (
     <div>
       <Navbar isParent={userQuery?.is_parent ?? false} userId={userQuery?.id} userName={userQuery?.name ?? ""} />
-      <Container>
-        <p className="underline font-bold text-xl pb-4 text-slate-500">Create TO DO:</p>
-        <CreateForm IntendedOptions={userOptions?.result ?? []} userId={+params?.userId} />
-      </Container>
+      <div className="flex grow my-auto flex-col justify-center items-center">
+        <Container>
+          <p className="underline font-bold text-xl pb-4 text-center  text-slate-500">Create TO DO:</p>
+          <CreateForm IntendedOptions={userOptions?.result ?? []} userId={+params?.userId} />
+        </Container>
+      </div>
     </div>
   );
 }

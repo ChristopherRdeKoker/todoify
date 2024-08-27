@@ -11,7 +11,8 @@
     "db:pull": "cd database && npx prisma db pull",
     "db:push": "cd database && npx prisma db push",
     "db:gen": "cd database && npx prisma generate",
-    "db:studio": "cd database && npx prisma studio"
+    "db:studio": "cd database && npx prisma studio",
+    "prisma:seed": "cd database/seed && npx prisma db seed --schema=../prisma/schema.prisma  "
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

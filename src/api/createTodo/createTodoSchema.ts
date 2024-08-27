@@ -15,6 +15,8 @@ export const createToDoSchema = z.object({
   intendedFor: OptionSchema,
   createdBy: z.coerce.number(),
   isUrgent: z.boolean(),
+  isRepeatable: z.boolean(),
+  days_array: z.coerce.number().array().min(1, { message: "Please choose at least one" }),
 });
 
 export const createToDoDefault = {
@@ -23,4 +25,6 @@ export const createToDoDefault = {
   title: "",
   isUrgent: false,
   createdBy: 0,
+  isRepeatable: false,
+  days_array: [],
 };

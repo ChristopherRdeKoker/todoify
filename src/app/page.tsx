@@ -1,3 +1,5 @@
+"use server";
+
 import { LoginForm } from "./LoginForm";
 
 export default async function Home() {

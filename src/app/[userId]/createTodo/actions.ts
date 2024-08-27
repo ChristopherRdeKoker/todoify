@@ -1,11 +1,14 @@
 "use server";
 
 import { z } from "zod";
-// import prisma from "../../../../database/prisma/prisma";
 import { PrismaClient } from "@prisma/client";
+import { createToDoSchema } from "@/api/createTodo/createTodoSchema";
 
 const prisma = new PrismaClient();
-import { createToDoSchema } from "@/api/createTodo/createTodoSchema";
+
+type FormState = {
+  message: string;
+};
 
 export async function getAllUserOptions(userId: number) {
   try {
@@ -33,44 +36,40 @@ export async function getAllUserOptions(userId: number) {
   }
 }
 
-export async function createToDoItem(formData: z.infer<typeof createToDoSchema>) {
+export async function createToDoItem(
+  prevState: FormState,
+  //  formData: z.infer<typeof createToDoSchema>
+  formData: FormData
+) {
   try {
-    return { message: "not implemented in actions yet, cant bypass ID when creating" };
-    // const result = await prisma.to_do_item.create({
-    //   data: {
-    //     is_complete: false,
-    //     is_urgent: formData?.isUrgent,
-    //     title: formData?.title,
-    //     created_by: formData?.createdBy,
-    //     created_for: +(formData?.intendedFor?.value ?? 0),
-    //   },
-    //   select: {
-    //     id: false,
-    //   },
-    // });
-    ////////////////////////////////
-    //   data: {
-    //     is_complete: false,
-    //     is_urgent: formData?.isUrgent ?? false,
-    //     title: formData?.title ?? "",
-    //     created_by: formData?.createdBy ?? 0,
-    //     created_for: +(formData?.intendedFor?.value ?? 0),
-    //   },
-    //   create: {
-    //     is_complete: false,
-    //     is_urgent: formData?.isUrgent ?? false,
-    //     title: formData?.title ?? "",
-    //     created_by: formData?.createdBy ?? 0,
-    //     created_for: +(formData?.intendedFor?.value ?? 0),
-    //   },
-    // });
-    // const result = await prisma.to_do_item.create({
-    //   data:
-    // })
+    const initialformData = Object.fromEntries(formData);
+    const parsed = createToDoSchema.safeParse(initialformData);
+
+    if (!parsed?.success) {
+      return { message: "Didnt pass BE validation" };
+    }
+    const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title } = parsed?.data;
+
+    const AllDays = [1, 2, 3, 4, 5, 6, 7];
+    const result = await prisma.to_do_item.create({
+      data: {
+        is_complete: false,
+        is_urgent: isUrgent,
+        title: title,
+        finished_at: null,
+        created_by: createdBy,
+        created_for: +intendedFor?.value,
+        created_on: new Date(),
+        is_repeatable: isRepeatable ?? false,
+        days_array: !!isRepeatable ? AllDays : days_array ?? [],
+      },
+    });
+
+    return { result, message: "Successfully created to do" };
   } catch (error) {
     console.log(error);
     return {
-      error: "An unexpected error occurred",
+      message: "An unexpected error occurred",
     };
   }
 }

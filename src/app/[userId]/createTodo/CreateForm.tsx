@@ -8,39 +8,39 @@ import { RHFtextfield } from "@/components/RHFTextfield";
 import { RHFSelect } from "@/components/RHFSelect";
 import { Button } from "@/components/Button";
 import { createToDoItem } from "./actions";
+import { useRef } from "react";
+import { Day } from "./days";
+import { useFormState } from "react-dom";
 
 type CreateFormProps = {
   userId: number;
   IntendedOptions: OptionType[];
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [state, formAction] = useFormState(createToDoItem, { message: "" });
+
   const formMethods = useForm({
     resolver: zodResolver(createToDoSchema),
     defaultValues: {
       ...createToDoDefault,
       createdBy: userId ?? 0,
+      days_array: [],
     },
-  });
-
-  const handleSubmit = formMethods.handleSubmit(async (data) => {
-    try {
-      const result = await createToDoItem(data);
-      if (result) {
-        formMethods.reset();
-        console.log("added new to do item successfully");
-      }
-    } catch (error) {
-      console.log(error);
-    }
   });
 
   const handleReset = () => formMethods.reset();
 
   return (
     <FormProvider {...formMethods}>
-      <form className="w-[21rem] flex flex-col gap-4">
-        {/* <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre> */}
-        <RHFCheckbox name="isUrgent" title="Is Urgent" />
+      <form
+        ref={formRef}
+        action={formAction}
+        onReset={handleReset}
+        onSubmit={formMethods.handleSubmit(() => formRef.current?.submit())}
+        className="max-w-[26rem] w-full flex flex-col gap-4"
+      >
+        <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
         <RHFtextfield title={"Title:"} name={"title"} />
         <RHFSelect
           isMulti={false}
@@ -51,9 +51,22 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
           name="intendedFor"
           options={IntendedOptions ?? []}
         />
-        <div className="flex flex-row justify-between gap-2 mr-6">
+        <div className="flex flex-row">
+          <RHFCheckbox name="isUrgent" title="Is Urgent" />
+          <RHFCheckbox name="isRepeatable" title="Is Repeatable" />
+        </div>
+        <div className="flex grow pt-12 pr-4 gap-1  justify-evenly ">
+          <Day currentDay="Mon" />
+          <Day currentDay="Tue" />
+          <Day currentDay="Wed" />
+          <Day currentDay="Thu" />
+          <Day currentDay="Fri" />
+          <Day currentDay="Sat" />
+          <Day currentDay="Sun" />
+        </div>
+        <div className="flex pt-8 flex-row justify-between gap-2 mr-6">
           <Button title="Reset" onClick={handleReset} variant="reset" />
-          <Button title="Create" variant="primary" onClick={handleSubmit} />
+          <Button title="Create" variant="primary" type="submit" />
         </div>
       </form>
     </FormProvider>

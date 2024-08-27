@@ -8,8 +8,9 @@ export async function loginMutation(input: z.infer<typeof LoginSchema>) {
   try {
     const user = await prisma.account_user.findFirst({
       where: {
-        email: {
+        username: {
           contains: input?.username?.toLowerCase(),
+          mode: "insensitive",
         },
       },
     });

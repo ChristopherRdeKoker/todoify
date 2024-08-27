@@ -22,7 +22,6 @@ export function LoginForm() {
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
       const result = await loginMutation(data);
-      console.log("result", result);
       if (result?.error) {
       } else if (result?.success) {
         router.push(`/${result?.user?.id}/homepage`);

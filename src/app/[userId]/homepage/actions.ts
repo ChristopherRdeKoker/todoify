@@ -13,7 +13,7 @@ export async function getUserQuery(input: number) {
       return { error: "No user data found" };
     }
 
-    const { password, email, ...safeQuery } = userQuery;
+    const { password, username, ...safeQuery } = userQuery;
 
     return {
       success: true,

@@ -10,7 +10,7 @@ datasource db {
 model account_user {
   id                              Int          @id @default(autoincrement())
   name                            String       @db.VarChar(255)
-  email                           String       @unique
+  username                           String       @unique
   password                        String
   is_parent                       Boolean?
   created_to_do_items_created_by  to_do_item[] @relation("CreatedBy")
@@ -18,14 +18,16 @@ model account_user {
 }
 
 model to_do_item {
-  id          Int          @id @default(autoincrement())
-  title       String       @db.VarChar(255)
-  is_complete Boolean
-  is_urgent   Boolean
-  created_by  Int
-  created_for Int
-  created_on  DateTime     @default(now())
-  finished_at DateTime?
-  createdBy   account_user @relation("CreatedBy", fields: [created_by], references: [id])
-  createdFor  account_user @relation("CreatedFor", fields: [created_for], references: [id])
+  id            Int          @id @default(autoincrement())
+  title         String       @db.VarChar(255)
+  is_complete   Boolean
+  is_urgent     Boolean
+  created_by    Int
+  created_for   Int
+  created_on    DateTime     @default(now())
+  finished_at   DateTime?
+  is_repeatable Boolean
+  createdBy     account_user @relation("CreatedBy", fields: [created_by], references: [id])
+  createdFor    account_user @relation("CreatedFor", fields: [created_for], references: [id])
+  days_array    Int[]
 }
