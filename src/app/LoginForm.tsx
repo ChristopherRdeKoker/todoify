@@ -6,11 +6,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import { RHFtextfield } from "@/components/RHFTextfield";
 import { Button } from "@/components/Button";
 import { loginMutation } from "./action";
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 
 export function LoginForm() {
-  const { pending } = useFormStatus();
+  // const { pending } = useFormStatus();
   const router = useRouter();
 
   const formMethods = useForm({
@@ -20,19 +20,13 @@ export function LoginForm() {
 
   const handleReset = () => formMethods.reset();
   const handleSubmit = formMethods.handleSubmit(async (data) => {
-    try {
-      const result = await loginMutation(data);
-      if (result?.error) {
-      } else if (result?.success) {
-        router.push(`/${result?.user?.id}/homepage`);
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
+    const result = await loginMutation(data);
+    if (result?.error) console.log(result?.error);
+    router.push(`./${result?.user?.id}/homepage`);
   });
   return (
     <FormProvider {...formMethods}>
-      <form className="w-[21rem] flex flex-col gap-4">
+      <form onReset={handleReset} onSubmit={handleSubmit} className="w-[21rem] flex flex-col gap-4">
         <Paperback>
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
@@ -40,7 +34,13 @@ export function LoginForm() {
 
           <div className="flex flex-row gap-4">
             <Button type="reset" variant="reset" title="Reset" onClick={handleReset} />
-            <Button isDisabled={pending} variant="primary" type="submit" title="Submit" onClick={handleSubmit} />
+            <Button
+              disabled={formMethods.formState?.isLoading}
+              variant="primary"
+              type="submit"
+              title="Submit"
+              onClick={handleSubmit}
+            />
           </div>
         </Paperback>
       </form>

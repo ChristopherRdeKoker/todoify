@@ -28,6 +28,10 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
       const result = await createToDoItem(data);
+
+      if (!!result?.data) {
+        formMethods.reset();
+      }
       console.log(result);
     } catch (error) {
       console.log(error);

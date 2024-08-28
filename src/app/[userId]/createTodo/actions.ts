@@ -37,43 +37,6 @@ export async function getAllUserOptions(userId: number) {
   }
 }
 
-// export async function createToDoItem(
-//   //  formData: z.infer<typeof createToDoSchema>
-//   formData: z.infer<typeof createToDoSchema>
-// ) {
-//   try {
-//     // const initialformData = Object.fromEntries(formData);
-//     // const parsed = createToDoSchema.safeParse(initialformData);
-
-//     // if (!parsed?.success) {
-//     //   return { message: "Didnt pass BE validation" };
-//     // }
-//     // const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title } = parsed?.data;
-
-//     const AllDays = [1, 2, 3, 4, 5, 6, 7];
-//     const result = await prisma.to_do_item.create({
-//       data: {
-//         is_complete: false,
-//         is_urgent: isUrgent,
-//         title: title,
-//         finished_at: null,
-//         created_by: createdBy,
-//         created_for: +intendedFor?.value,
-//         created_on: new Date(),
-//         is_repeatable: isRepeatable ?? false,
-//         days_array: !!isRepeatable ? AllDays : days_array ?? [],
-//       },
-//     });
-
-//     return { result, message: "Successfully created to do" };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       message: "An unexpected error occurred",
-//     };
-//   }
-// }
-
 export const createToDoItem = actionClient.schema(createToDoSchema).action(async ({ parsedInput }) => {
   const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title } = parsedInput;
   const AllDays = [1, 2, 3, 4, 5, 6, 7];
