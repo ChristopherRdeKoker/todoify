@@ -10,7 +10,7 @@ export default async function Homepage({ params }: { params: HomepageParams }) {
   if (getUser?.data?.error) return <div>{getUser?.data?.error ?? "there was an error"}</div>;
   if (!getUser?.data?.userQuery) return <p>fetching...</p>;
   return (
-    <div className="flex justify-center flex-grow">
+    <div className="flex justify-center flex-col grow">
       <p>Daily message here</p>
       <p>Weather</p>
       <p>Stats</p>
