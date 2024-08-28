@@ -8,7 +8,7 @@ import { RHFtextfield } from "@/components/RHFTextfield";
 import { RHFSelect } from "@/components/RHFSelect";
 import { Button } from "@/components/Button";
 import { createToDoItem } from "./actions";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Day } from "./days";
 
 type CreateFormProps = {
@@ -16,6 +16,7 @@ type CreateFormProps = {
   IntendedOptions: OptionType[];
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
+  const [isPending, setIsPending] = useState(false);
   const formMethods = useForm({
     resolver: zodResolver(createToDoSchema),
     defaultValues: {
@@ -28,6 +29,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     console.log("boom");
     try {
+      setIsPending(true);
       const result = await createToDoItem(data);
 
       console.log(result);
@@ -35,6 +37,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
         formMethods.reset();
       }
       console.log(result);
+      setIsPending(false);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +74,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
         </div>
         <div className="flex pt-8 flex-row justify-between gap-1 ">
           <Button title="Reset" onClick={handleReset} variant="reset" />
-          <Button title="Create" variant="primary" type="submit" onClick={handleSubmit} />
+          <Button title="Create" variant="primary" disabled={isPending ?? false} type="submit" onClick={handleSubmit} />
         </div>
       </form>
     </FormProvider>
