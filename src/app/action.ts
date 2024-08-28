@@ -24,9 +24,11 @@ export async function loginMutation(input: z.infer<typeof LoginSchema>) {
       return { error: "Incorrect password" };
     }
 
+    //update list if iss repeatable
+
     const safeUser = {
       id: user?.id,
-      // name: user?.name,
+      name: user?.name,
     };
 
     return { success: true, user: safeUser };

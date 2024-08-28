@@ -24,10 +24,10 @@ export function ListItem({ input }: ListItemProps) {
   const [count, setCount] = useState<number>(0);
   const [message, setMessage] = useState("");
   const isCompletedClassname = input?.is_complete
-    ? "border-green-600 bg-green-300"
+    ? "border-green-600 bg-green-300 hover:bg-green-200"
     : input?.is_urgent
-    ? "border-red-600 bg-red-300"
-    : "border-black";
+    ? "border-red-600 bg-red-300 active:bg-red-200"
+    : "border-black active:bg-red-200";
 
   const handleSubmit = async () => {
     if (input?.is_complete) return;
@@ -44,7 +44,7 @@ export function ListItem({ input }: ListItemProps) {
     <div
       onClick={handleSubmit}
       className={twMerge(
-        "rounded-md select-none cursor-pointer flex-row items-center active:bg-red-200 transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
+        "rounded-md select-none cursor-pointer flex-row items-center  transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
         isCompletedClassname
       )}
     >

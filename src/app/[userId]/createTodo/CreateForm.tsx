@@ -74,7 +74,13 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
         </div>
         <div className="flex pt-8 flex-row justify-between gap-1 ">
           <Button title="Reset" onClick={handleReset} variant="reset" />
-          <Button title="Create" variant="primary" disabled={isPending ?? false} type="submit" onClick={handleSubmit} />
+          <Button
+            title="Create"
+            variant="primary"
+            disabled={isPending ?? false}
+            type="submit"
+            onSubmit={handleSubmit}
+          />
         </div>
       </form>
     </FormProvider>
