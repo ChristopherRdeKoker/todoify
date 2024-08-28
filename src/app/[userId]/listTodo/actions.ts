@@ -1,52 +1,76 @@
 "use server";
 
+import { actionClient } from "@/api/safe-actions/safe-action";
 import prisma from "../../../../database/prisma/prisma";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
-export async function getMyTodoList(userId: number) {
-  try {
-    const today = new Date()?.getDay();
+// export const getMyTodoList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+//   const userId = parsedInput;
+//   const today = new Date()?.getDay();
 
-    const getMyToDoQuery = await prisma.to_do_item.findMany({
-      where: {
-        created_for: userId,
-        AND: [{ is_repeatable: false }, { days_array: { has: today ?? 0 } }],
-      },
-    });
-    if (!getMyToDoQuery) {
-      return { error: "Something went wrong brah" };
-    }
+//   const getMyToDoQuery = await prisma.to_do_item.findMany({
+//     where: {
+//       created_for: userId,
+//       AND: [{ is_repeatable: false }, { days_array: { has: today ?? 0 } }],
+//     },
+//   });
 
-    return {
-      success: true,
-      result: getMyToDoQuery,
-    };
-  } catch (error) {
-    console.log(error);
-  }
-}
+//   return {
+//     result: getMyToDoQuery,
+//     message: "Successfully retrieved todays to do list",
+//   };
+// });
 
-// export async function getUserQuery(input: number) {
-//   try {
-//     const userQuery = await prisma.account_user?.findFirst({
-//       where: {
-//         id: +(input ?? 0),
-//       },
-//     });
-//     if (!userQuery) {
-//       return { error: "No user data found" };
-//     }
+export const captureList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+  const listId = parsedInput;
+  const result = await prisma.to_do_item.update({
+    where: {
+      id: listId,
+    },
+    data: {
+      is_complete: true,
+      finished_at: new Date(),
+    },
+  });
 
-//     const { password, email, ...safeQuery } = userQuery;
+  const usersId = result?.created_for;
 
-//     // let isParent =
-//     return {
-//       success: true,
-//       userQuery: safeQuery,
-//     };
-//   } catch (err) {
-//     console.log(err);
-//     return {
-//       error: "An unexpected error occurred",
-//     };
-//   }
-// }
+  revalidatePath(`/[${usersId}]/listToDo`, "page");
+
+  return {
+    result,
+    message: "successfully captured list item",
+  };
+});
+
+export const getMyTodoList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+  const userId = parsedInput;
+  const today = new Date().getDay();
+
+  const getMyToDoQuery = await prisma.to_do_item.findMany({
+    where: {
+      created_for: userId,
+      OR: [
+        // All tasks for today (completed or not)
+        {
+          days_array: { has: today },
+        },
+        // Incomplete tasks from any day
+        {
+          is_complete: false,
+        },
+      ],
+    },
+    orderBy: [
+      { is_complete: "asc" }, // Incomplete tasks first
+      { is_urgent: "desc" }, // Urgent tasks next
+      { created_on: "asc" }, // Older tasks first
+    ],
+  });
+
+  return {
+    result: getMyToDoQuery,
+    message: "Successfully retrieved today's and incomplete to-do list",
+  };
+});

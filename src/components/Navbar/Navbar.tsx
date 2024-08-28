@@ -9,10 +9,10 @@ type NavbarProps = {
 };
 export function Navbar({ isParent = false, userId, userName }: NavbarProps) {
   return (
-    <div>
-      <Container>
-        <p>{userName && `Welcome back ${userName}`}</p>
-      </Container>
+    <div className="bg-slate-800 rounded-sm">
+      {/* <Container> */}
+      <p className="p-1 text-white">{userName && `Welcome back ${userName}`}</p>
+      {/* </Container> */}
       <NavButtons userId={userId} isParent={isParent} />
     </div>
   );

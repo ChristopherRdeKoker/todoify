@@ -26,9 +26,11 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   });
 
   const handleSubmit = formMethods.handleSubmit(async (data) => {
+    console.log("boom");
     try {
       const result = await createToDoItem(data);
 
+      console.log(result);
       if (!!result?.data) {
         formMethods.reset();
       }
@@ -43,7 +45,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   return (
     <FormProvider {...formMethods}>
       <form onReset={handleReset} onSubmit={handleSubmit} className="max-w-[26rem] w-full flex flex-col gap-4">
-        <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
+        {/* <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre> */}
         <RHFtextfield title={"Title:"} name={"title"} />
         <RHFSelect
           isMulti={false}
@@ -67,7 +69,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
           <Day currentDay="Sat" />
           <Day currentDay="Sun" />
         </div>
-        <div className="flex pt-8 flex-row justify-between gap-2 mr-6">
+        <div className="flex pt-8 flex-row justify-between gap-1 ">
           <Button title="Reset" onClick={handleReset} variant="reset" />
           <Button title="Create" variant="primary" type="submit" onClick={handleSubmit} />
         </div>

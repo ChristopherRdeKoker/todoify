@@ -9,7 +9,7 @@ export function NavButtons({ isParent, userId }: NavButtonsProps) {
   return (
     <Container>
       <div className="flex flex-row items-center justify-between">
-        <section className="flex flex-row fill-slate-500 gap-4 p-1">
+        <section className="flex flex-row fill-slate-500 gap-4">
           <NavIcon color="purple" href={`/${userId}/homepage`} IconType={"Home"} />
           <NavIcon color="green" href={`/${userId}/listTodo`} IconType={"List"} />
           {!!isParent && <NavIcon color="blue" href={`/${userId}/createTodo`} IconType={"Create"} />}
