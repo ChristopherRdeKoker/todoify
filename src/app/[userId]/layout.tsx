@@ -14,14 +14,12 @@ export default async function RootLayout({
   return (
     <div className="flex grow justify-center">
       <div className="flex items-center  bg-slate-100 flex-col gap-2 justify-start">
-        <div className="flex flex-col grow">{children}</div>
-        {/* {!!hasData && ( */}
+        <div className="flex flex-col grow max-h-[calc(85vh)]">{children}</div>
         <Navbar
           isParent={userQuery?.data?.userQuery?.is_parent ?? false}
           userId={userQuery?.data?.userQuery?.id ?? 0}
           userName={userQuery?.data?.userQuery?.name ?? "random weirdo"}
         />
-        {/* )} */}
       </div>
     </div>
   );
