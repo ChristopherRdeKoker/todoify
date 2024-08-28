@@ -10,16 +10,12 @@ import { Button } from "@/components/Button";
 import { createToDoItem } from "./actions";
 import { useRef } from "react";
 import { Day } from "./days";
-import { useFormState } from "react-dom";
 
 type CreateFormProps = {
   userId: number;
   IntendedOptions: OptionType[];
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [state, formAction] = useFormState(createToDoItem, { message: "" });
-
   const formMethods = useForm({
     resolver: zodResolver(createToDoSchema),
     defaultValues: {
@@ -29,17 +25,20 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
     },
   });
 
+  const handleSubmit = formMethods.handleSubmit(async (data) => {
+    try {
+      const result = await createToDoItem(data);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   const handleReset = () => formMethods.reset();
 
   return (
     <FormProvider {...formMethods}>
-      <form
-        ref={formRef}
-        action={formAction}
-        onReset={handleReset}
-        onSubmit={formMethods.handleSubmit(() => formRef.current?.submit())}
-        className="max-w-[26rem] w-full flex flex-col gap-4"
-      >
+      <form onReset={handleReset} onSubmit={handleSubmit} className="max-w-[26rem] w-full flex flex-col gap-4">
         <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
         <RHFtextfield title={"Title:"} name={"title"} />
         <RHFSelect
@@ -66,7 +65,7 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
         </div>
         <div className="flex pt-8 flex-row justify-between gap-2 mr-6">
           <Button title="Reset" onClick={handleReset} variant="reset" />
-          <Button title="Create" variant="primary" type="submit" />
+          <Button title="Create" variant="primary" type="submit" onClick={handleSubmit} />
         </div>
       </form>
     </FormProvider>
