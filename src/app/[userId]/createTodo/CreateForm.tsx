@@ -8,7 +8,6 @@ import { RHFtextfield } from "@/components/RHFTextfield";
 import { RHFSelect } from "@/components/RHFSelect";
 import { Button } from "@/components/Button";
 import { createToDoItem } from "./actions";
-import { useRef, useState } from "react";
 import { Day } from "./days";
 
 type CreateFormProps = {
@@ -16,12 +15,13 @@ type CreateFormProps = {
   IntendedOptions: OptionType[];
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
+  const today = new Date()?.getDay();
   const formMethods = useForm({
     resolver: zodResolver(createToDoSchema),
     defaultValues: {
       ...createToDoDefault,
       createdBy: userId ?? 0,
-      days_array: [],
+      days_array: today ? [today] : [],
     },
   });
 

@@ -21,9 +21,7 @@ export function NavIcon({ IconType, href, color }: NavButtonProps) {
 
   return (
     <Link href={href}>
-      <IconComponent
-        className={twMerge(`w-[4rem] fill-gray-800 h-[3.5rem]  active:fill-${color}-400`, `hover:fill-${color}-600`)}
-      />
+      <IconComponent className={twMerge(`w-[4rem] h-[3.5rem]  active:fill-${color}-400`, `hover:fill-${color}-600`)} />
     </Link>
   );
 }

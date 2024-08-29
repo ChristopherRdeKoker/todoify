@@ -8,9 +8,11 @@ import { Button } from "@/components/Button";
 import { loginMutation } from "./action";
 // import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
+import { useState } from "react";
 
 export function LoginForm() {
-  // const { pending } = useFormStatus();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   const formMethods = useForm({
@@ -20,10 +22,18 @@ export function LoginForm() {
 
   const handleReset = () => formMethods.reset();
   const handleSubmit = formMethods.handleSubmit(async (data) => {
-    const result = await loginMutation(data);
-    if (result?.error) console.log(result?.error);
-    router.push(`./${result?.user?.id}/homepage`);
+    setIsSubmitting(true);
+    try {
+      const result = await loginMutation(data);
+      if (result?.error) console.log(result?.error);
+      router.push(`./${result?.user?.id}/homepage`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   });
+
   return (
     <FormProvider {...formMethods}>
       <form onReset={handleReset} onSubmit={handleSubmit} className="w-[21rem] flex flex-col gap-4">
@@ -31,17 +41,20 @@ export function LoginForm() {
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
           <RHFtextfield type="password" title="Password:" name="password" />
-
-          <div className="flex flex-row gap-4">
-            <Button type="reset" variant="reset" title="Reset" onClick={handleReset} />
-            <Button
-              disabled={formMethods.formState?.isLoading}
-              variant="primary"
-              type="submit"
-              title="Submit"
-              onClick={handleSubmit}
-            />
-          </div>
+          {!isSubmitting ? (
+            <div className="flex flex-row gap-4">
+              <Button type="reset" variant="reset" title="Reset" onClick={handleReset} />
+              <Button
+                disabled={formMethods.formState?.isLoading}
+                variant="primary"
+                type="submit"
+                title="Submit"
+                onClick={handleSubmit}
+              />
+            </div>
+          ) : (
+            <p className="text-center font-bold">Loading...</p>
+          )}
         </Paperback>
       </form>
     </FormProvider>

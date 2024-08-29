@@ -4,5 +4,5 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   //catering for mobile only from this point on
-  return <div>{children}</div>;
+  return <div className="flex justify-center items-center flex-col grow">{children}</div>;
 }
