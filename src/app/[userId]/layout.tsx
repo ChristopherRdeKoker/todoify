@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/Navbar/Navbar";
 import { getUserQuery } from "./homepage/actions";
 
-export default async function RootLayout({
+export default async function Layout({
   children,
   params,
 }: Readonly<{
@@ -13,15 +13,16 @@ export default async function RootLayout({
   const hasData = userQuery?.data?.userQuery?.id;
   return (
     // <div className="flex grow justify-center">
-    <div className="flex items-center grow bg-slate-100 flex-col gap-2 justify-start">
-      <div className="flex flex-col grow max-h-[calc(95vh)] overflow-y-auto">
-        <div className="flex flex-col grow">{children}</div>
-
-        <Navbar
-          isParent={userQuery?.data?.userQuery?.is_parent ?? false}
-          userId={userQuery?.data?.userQuery?.id ?? 0}
-          userName={userQuery?.data?.userQuery?.name ?? "random weirdo"}
-        />
+    <div className="flex grow h-[100vh]  items-center bg-slate-100 flex-col gap-2 justify-start">
+      <div className="flex flex-col  grow">
+        <main className="flex-grow  overflow-auto ">{children}</main>
+        <footer className="mt-auto ">
+          <Navbar
+            isParent={userQuery?.data?.userQuery?.is_parent ?? false}
+            userId={userQuery?.data?.userQuery?.id ?? 0}
+            userName={userQuery?.data?.userQuery?.name ?? "random weirdo"}
+          />
+        </footer>
       </div>
     </div>
     // </div>
