@@ -13,8 +13,10 @@ export default async function RootLayout({
   const hasData = userQuery?.data?.userQuery?.id;
   return (
     <div className="flex min-h-screen grow justify-center">
-      <div className="flex grow min-h-screen  items-center bg-slate-100 h-[calc(100%)]   flex-col gap-2 justify-start">
-        <div className=" bg-gradient-to-r from-red-300 to-yellow-500 min-h-[calc(100vh_-_8rem)]">{children}</div>
+      <div className="flex grow  items-center bg-slate-100 min-h-[calc(100%)]   flex-col justify-start">
+        <div className="min-w-[100vw] mx-auto bg-gradient-to-r from-red-300 to-yellow-500 min-h-[calc(100vh_-_7.5rem)]">
+          {children}
+        </div>
         <Navbar
           isParent={userQuery?.data?.userQuery?.is_parent ?? false}
           userId={userQuery?.data?.userQuery?.id ?? 0}

@@ -9,12 +9,15 @@ import { RHFSelect } from "@/components/RHFSelect";
 import { Button } from "@/components/Button";
 import { createToDoItem } from "./actions";
 import { Day } from "./days";
+import { useState } from "react";
 
 type CreateFormProps = {
   userId: number;
   IntendedOptions: OptionType[];
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const today = new Date()?.getDay();
   const formMethods = useForm({
     resolver: zodResolver(createToDoSchema),
@@ -28,6 +31,8 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     console.log("boom");
     try {
+      setIsSubmitting(true);
+
       const result = await createToDoItem(data);
       if (result?.serverError) console.log(result?.serverError);
       if (result?.validationErrors) console.log(result?.serverError);
@@ -39,6 +44,8 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
       console.log(result);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   });
 
@@ -71,10 +78,14 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
           <Day currentDay="Sat" />
           <Day currentDay="Sun" />
         </div>
-        <div className="flex pt-8 flex-row justify-between gap-1 ">
-          <Button title="Reset" onClick={handleReset} variant="reset" />
-          <Button title="Create" variant="primary" type="submit" onSubmit={handleSubmit} />
-        </div>
+        {!isSubmitting ? (
+          <div className="flex pt-8 flex-row justify-between gap-1 ">
+            <Button title="Reset" onClick={handleReset} variant="reset" />
+            <Button title="Create" variant="primary" type="submit" onSubmit={handleSubmit} />
+          </div>
+        ) : (
+          <p className="text-center">Submitting...</p>
+        )}
       </form>
     </FormProvider>
   );
