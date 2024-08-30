@@ -13,7 +13,7 @@ export default async function RootLayout({
   const hasData = userQuery?.data?.userQuery?.id;
   return (
     <div className="flex grow justify-center">
-      <div className="flex grow min-h-[100vh] overflow-y-hidden items-center bg-slate-100   flex-col justify-start">
+      <div className="flex grow  items-center bg-slate-100   flex-col justify-start">
         <div className="min-w-[100vw] mx-auto bg-gradient-to-r from-red-300 to-yellow-500 grow">
           {children}
         </div>
