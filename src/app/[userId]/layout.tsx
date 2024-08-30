@@ -14,7 +14,11 @@ export default async function RootLayout({
   return (
     <div className="flex grow justify-center">
       <div className="flex grow  items-center bg-slate-100   flex-col justify-start">
+<<<<<<< HEAD
         <div className="min-w-[100vw] mx-auto bg-gradient-to-r from-red-300 to-yellow-500 min-h-[calc(100dvh_-_7rem)]">
+=======
+        <div className="min-w-[100vw] mx-auto bg-gradient-to-r from-red-300 to-yellow-500 grow">
+>>>>>>> 324294624ad67ea251f80533e2581c70eb48a0f2
           {children}
         </div>
         <Navbar

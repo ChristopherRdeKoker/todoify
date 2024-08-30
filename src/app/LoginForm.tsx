@@ -6,9 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { RHFtextfield } from "@/components/RHFTextfield";
 import { Button } from "@/components/Button";
 import { loginMutation } from "./action";
-// import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
 import { useState } from "react";
 
 export function LoginForm() {
@@ -25,7 +23,7 @@ export function LoginForm() {
     setIsSubmitting(true);
     try {
       const result = await loginMutation(data);
-      if (result?.error) console.log(result?.error);
+      if (result?.error) return console.log(result?.error);
       router.push(`./${result?.user?.id}/homepage`);
     } catch (error) {
       console.error(error);
@@ -36,14 +34,23 @@ export function LoginForm() {
 
   return (
     <FormProvider {...formMethods}>
-      <form onReset={handleReset} onSubmit={handleSubmit} className="w-[21rem] flex flex-col gap-4">
+      <form
+        onReset={handleReset}
+        onSubmit={handleSubmit}
+        className="w-[21rem] flex flex-col gap-4"
+      >
         <Paperback>
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
           <RHFtextfield type="password" title="Password:" name="password" />
           {!isSubmitting ? (
             <div className="flex flex-row gap-4">
-              <Button type="reset" variant="reset" title="Reset" onClick={handleReset} />
+              <Button
+                type="reset"
+                variant="reset"
+                title="Reset"
+                onClick={handleReset}
+              />
               <Button
                 disabled={formMethods.formState?.isLoading}
                 variant="primary"

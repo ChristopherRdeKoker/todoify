@@ -18,7 +18,10 @@ export default async function ListToDo({ params }: { params: ListToDoParams }) {
       </Container>
       <div className="flex grow">
         <div className="flex grow max-h-[calc(75vh)] overflow-y-auto gap-2 flex-col p-1">
-          {!!todoData?.data?.result && todoData?.data?.result?.map((i) => <ListItem input={i ?? []} key={i?.id} />)}
+          {!!todoData?.data?.result &&
+            todoData?.data?.result?.map((i) => (
+              <ListItem input={i ?? []} key={i?.id} />
+            ))}
         </div>
       </div>
     </div>
