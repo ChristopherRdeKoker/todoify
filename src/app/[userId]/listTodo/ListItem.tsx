@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/RHFCheckbox";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { captureList } from "./actions";
+import { toNeatTime } from "@/lib/dateFormat";
 
 type ListItemProps = {
   input: {
@@ -32,7 +33,7 @@ export function ListItem({ input }: ListItemProps) {
   const handleSubmit = async () => {
     if (input?.is_complete) return;
     setCount((prev) => prev + 1);
-    if (count >= 5) {
+    if (count >= 3) {
       setMessage("updating...");
       //handle
       const result = await captureList(input?.id);
@@ -44,18 +45,30 @@ export function ListItem({ input }: ListItemProps) {
     <div
       onClick={handleSubmit}
       className={twMerge(
-        "rounded-md select-none cursor-pointer flex-row items-center  transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
+        "rounded-md select-none cursor-pointer flex-col items-center  transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
         isCompletedClassname
       )}
     >
-      {!!message?.length && <p className="text-error-300 flex justify-center grow text-center">{message}</p>}
-      <div className="flex w-full flex-col">
-        <p className="font-bold">{input?.title}</p>
-        {input?.is_urgent && !input?.is_complete && <p className="text-red-400 text-2xl">---URGENT---</p>}
-      </div>
-      <div className="">
-        <Checkbox title="complete" checked={input?.is_complete} />
-      </div>
+      {!!message?.length ? (
+        <p className="text-error-300 flex justify-center grow mx-auto text-center">
+          {message}
+        </p>
+      ) : (
+        <div className="flex flex-col grow">
+          {input?.is_urgent && !input?.is_complete && (
+            <p className="text-red-400 text-2xl">---URGENT---</p>
+          )}
+          <p className="font-bold">{input?.title}</p>
+          <div id="left" className="flex"></div>
+          <div id="right" className="flex">
+            <div className="flex w-full  flex-row justify-between">
+              <p className="text-xs">{`Created: ${
+                !!input?.created_on ? toNeatTime(input?.created_on) : ""
+              }`}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
