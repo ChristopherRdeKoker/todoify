@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} w-[100vw]`}>
+      <body className={`${inter.className} `}>
         <div className="flex flex-col max-w-[23rem] mx-auto items-center grow justify-center">{children}</div>
       </body>
     </html>
