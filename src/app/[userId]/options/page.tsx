@@ -2,30 +2,38 @@ import Link from "next/link";
 
 export default async function OptionsPage() {
   return (
-    <div className="p-1 grid grid-cols-2 grid-rows-2 my-auto min-h-[80vh] grid-flow-row gap-2 justify-center items-center">
+    <div className="p-8 grid grid-cols-2 grid-rows-2 my-auto min-h-[80vh] grid-flow-row gap-2 justify-center items-center">
       <Link
         href={"options/message"}
-        className="flex-col rounded-md p-2 text-center my-auto border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-blue-400 h-[calc(35vh)] grow "
+        className="flex-col rounded-md p-2 text-center  border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-blue-400 grow "
       >
-        Daily Message
+        <div className="flex justify-center h-[10rem] items-center">
+          <p>Daily Message</p>
+        </div>
       </Link>
       <Link
         href={"options/message"}
-        className="flex-col rounded-md p-2 text-center my-auto border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-green-500  h-[calc(35vh)] grow "
+        className="flex-col rounded-md p-2 text-center  border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-green-400 grow "
       >
-        asd
-      </Link>
-      <Link
-        href={"/message"}
-        className="flex-col rounded-md p-2 text-center my-auto border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-rose-300 h-[calc(35vh)] grow "
-      >
-        asd
+        <div className="flex justify-center h-[10rem] items-center">
+          <p>TBA</p>
+        </div>
       </Link>
       <Link
         href={"options/admin"}
-        className="flex-col rounded-md p-2 text-center my-auto border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-purple-300 h-[calc(35vh)] grow "
+        className="flex-col rounded-md p-2 text-center  border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-rose-400 grow "
       >
-        admin
+        <div className="flex justify-center h-[10rem] items-center">
+          <p>TBA</p>
+        </div>
+      </Link>
+      <Link
+        href={"options/admin"}
+        className="flex-col rounded-md p-2 text-center  border-[0.1rem] border-slate-500 active:border-[0.2rem] bg-purple-400 grow "
+      >
+        <div className="flex justify-center h-[10rem] items-center">
+          <p>Admin</p>
+        </div>
       </Link>
     </div>
   );
