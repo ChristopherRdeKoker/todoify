@@ -52,6 +52,10 @@ export function Dropdown<TOptionType extends OptionType, TIsMulti extends boolea
       <Select<TOptionType>
         name={name}
         styles={{
+          menuList: (baseStyles) => ({
+            ...baseStyles,
+            maxHeight: "15rem",
+          }),
           menu: (baseStyles) => ({
             ...baseStyles,
             zIndex: 90,

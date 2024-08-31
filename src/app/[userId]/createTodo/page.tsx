@@ -17,7 +17,7 @@ export default async function CreateTodo({ params }: { params: CreateTodoParams 
   return (
     <div className="min-h-[100%] flex  my-auto  flex-col justify-center items-center">
       <Container>
-        <p className="underline font-bold text-xl pb-4 text-center  text-slate-500">Create TO DO:</p>
+        <p className="underline font-bold text-xl pb-2 text-center  text-slate-500">Create TO DO:</p>
         <CreateForm IntendedOptions={userOptions?.data?.result ?? []} userId={+params?.userId} />
       </Container>
     </div>

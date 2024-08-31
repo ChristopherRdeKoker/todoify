@@ -1,8 +1,14 @@
 "use client";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createToDoDefault, createToDoSchema, OptionType } from "@/api/createTodo/createTodoSchema";
-import { RHFCheckbox } from "@/components/RHFCheckbox";
+import {
+  createToDoDefault,
+  createToDoSchema,
+  hourOptions,
+  OptionType,
+  timePeriod,
+} from "@/api/createTodo/createTodoSchema";
+import { Checkbox, RHFCheckbox } from "@/components/RHFCheckbox";
 import { RHFtextfield } from "@/components/RHFTextfield";
 import { RHFSelect } from "@/components/RHFSelect";
 import { Button } from "@/components/Button";
@@ -16,6 +22,7 @@ type CreateFormProps = {
 };
 export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const today = new Date()?.getDay();
   const formMethods = useForm({
@@ -68,7 +75,43 @@ export function CreateForm({ userId, IntendedOptions }: CreateFormProps) {
           <RHFCheckbox name="isUrgent" title="Is Urgent" />
           <RHFCheckbox name="isRepeatable" title="Is Repeatable" />
         </div>
-        <div className="flex grow pt-12 pr-4 gap-1  justify-evenly ">
+        <Checkbox
+          title="Add specific time?"
+          checked={isOpen}
+          onClick={() =>
+            setIsOpen((openrino) => {
+              if (openrino == false) return true;
+              formMethods.setValue("timePeriod", null);
+              formMethods.setValue("hourOptions", null);
+              return false;
+            })
+          }
+        />
+        {!!isOpen && (
+          <div className="flex flex-row grows">
+            <RHFSelect
+              placeholder=""
+              styles={{}}
+              isDisabled={false}
+              isMulti={false}
+              label="Start time:"
+              name={"hourOptions"}
+              options={hourOptions}
+            />
+            <div className="w-[15rem]">
+              <RHFSelect
+                placeholder=""
+                styles={{}}
+                isDisabled={false}
+                isMulti={false}
+                label="Period"
+                name={"timePeriod"}
+                options={timePeriod}
+              />
+            </div>
+          </div>
+        )}
+        <div className="flex grow pt-8 pr-4 gap-1  justify-evenly ">
           <Day currentDay="Mon" />
           <Day currentDay="Tue" />
           <Day currentDay="Wed" />

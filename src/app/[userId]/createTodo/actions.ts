@@ -31,10 +31,12 @@ export const getAllUserOptions = actionClient.schema(z.coerce.number()).action(a
 });
 
 export const createToDoItem = actionClient.schema(createToDoSchema).action(async ({ parsedInput }) => {
-  console.log("0asdasdasdasd");
-  const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title } = parsedInput;
+  const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title, hourOptions, timePeriod } =
+    parsedInput;
   const todayDate = new Date()?.getDay();
   const AllDays = [1, 2, 3, 4, 5, 6, 7];
+  const unlockTime = !hourOptions?.value ? null : +hourOptions?.value + (timePeriod?.text == "PM" ? 12 : 0);
+
   const result = await prisma.to_do_item.create({
     data: {
       is_complete: false,
@@ -46,6 +48,7 @@ export const createToDoItem = actionClient.schema(createToDoSchema).action(async
       created_on: new Date(),
       is_repeatable: isRepeatable ?? false,
       days_array: !!isRepeatable ? AllDays : days_array ?? [todayDate] ?? [],
+      unlock_time: unlockTime,
     },
   });
 

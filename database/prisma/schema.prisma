@@ -30,5 +30,5 @@ model to_do_item {
   createdBy     account_user @relation("CreatedBy", fields: [created_by], references: [id])
   createdFor    account_user @relation("CreatedFor", fields: [created_for], references: [id])
   days_array    Int[]
-  unlock_time DateTime?
+  unlock_time Int?
 }
