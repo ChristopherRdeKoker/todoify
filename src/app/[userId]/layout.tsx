@@ -13,7 +13,7 @@ export default async function RootLayout({
   const hasData = userQuery?.data?.userQuery?.id;
   return (
     <div>
-      <div className=" mx-auto bg-gradient-to-r max-w-[23rem] from-red-300 overflow-hidden to-yellow-500 overflow-y-hidden h-[calc(100dvh_-_7.1rem)]">
+      <div className=" mx-auto bg-gradient-to-r  from-red-300 overflow-hidden to-yellow-500 overflow-y-hidden h-[calc(100dvh_-_7.5rem)]">
         {children}
       </div>
       <Navbar
