@@ -67,3 +67,18 @@ export const getMyTodoList = actionClient.schema(z.coerce.number()).action(async
     message: "Successfully retrieved today's and incomplete to-do list",
   };
 });
+
+export const deleteToDoList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+  const delId = parsedInput;
+
+  const result = await prisma.to_do_item.delete({
+    where: {
+      id: delId,
+    },
+  });
+  revalidatePath("editList");
+  return {
+    result: result,
+    message: "Successfully deleted to-do list",
+  };
+});

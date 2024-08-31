@@ -30,6 +30,22 @@ export const getAllUserOptions = actionClient.schema(z.coerce.number()).action(a
   };
 });
 
+export const getREALAllUserOptions = actionClient.action(async () => {
+  const allUsers = await prisma.account_user.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
+  const result = allUsers?.map((i) => ({ text: i?.name, value: i?.id?.toString() }));
+
+  return {
+    message: "Got all users options",
+    result,
+  };
+});
+
 export const createToDoItem = actionClient.schema(createToDoSchema).action(async ({ parsedInput }) => {
   const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title, hourOptions, timePeriod } =
     parsedInput;
