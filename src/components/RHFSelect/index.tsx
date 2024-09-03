@@ -100,7 +100,7 @@ export function Dropdown<TOptionType extends OptionType, TIsMulti extends boolea
         <sub
           className={twMerge(
             `-mt-2 mb-2 block h-6 text-xs font-medium text-gray-400 `,
-            !!isError ? "text-error-main" : ""
+            !!isError ? "text-red-500" : ""
           )}
         >
           {helperText}
