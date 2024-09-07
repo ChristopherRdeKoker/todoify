@@ -1,16 +1,16 @@
-import { getUserQuery } from "./actions";
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
 
-type HomepageParams = {
-  userId: number;
-};
-export default async function Homepage({ params }: { params: HomepageParams }) {
-  const getUser = await getUserQuery(+params?.userId);
+export default async function Homepage() {
+  const session = await auth();
 
-  if (getUser?.data?.error) return <div>{getUser?.data?.error ?? "there was an error"}</div>;
-  if (!getUser?.data?.userQuery) return <p>fetching...</p>;
+  if (!session) {
+    redirect("/");
+  }
+
   return (
     <>
-      <p className="underline w-[100dvw]  flex-grow p-1 font-bold bg-black  text-white">{`Welcome ${getUser?.data?.userQuery?.name}`}</p>
+      <p className="underline w-[100dvw]  flex-grow p-1 font-bold bg-black  text-white">{`Welcome ${session?.userCredentails?.name}`}</p>
       <div className="flex gap-4 justify-center flex-col w-[calc(100dvw_-_1rem)] p-4 grow">
         {/* <Container></Container> */}
         <div className="p-4 flex flex-row justify-between bg-purple-200 border-[0.15rem] rounded-lg  border-slate-700">

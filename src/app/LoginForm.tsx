@@ -5,63 +5,65 @@ import { Paperback } from "@/components/Paperback";
 import { FormProvider, useForm } from "react-hook-form";
 import { RHFtextfield } from "@/components/RHFTextfield";
 import { Button } from "@/components/Button";
-import { loginMutation } from "./action";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { LoginHandler } from "./action";
+import { AuthError } from "next-auth";
+import { ActionValidationError } from "next-safe-action";
+import { getErrorMessage } from "./auth.config";
 
 export function LoginForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
+  const [isError, setIsError] = useState("");
 
   const formMethods = useForm({
     resolver: zodResolver(LoginSchema),
-    defaultValues: LoginDefaultValues,
+    defaultValues: { ...LoginDefaultValues, password: "123456", username: "chris" },
   });
 
-  const handleReset = () => formMethods.reset();
   const handleSubmit = formMethods.handleSubmit(async (data) => {
-    setIsSubmitting(true);
     try {
-      const result = await loginMutation(data);
-      if (result?.error) return console.log(result?.error);
-      router.push(`./${result?.user?.id}/homepage`);
+      const response = await LoginHandler(data);
+
+      if (!!response?.data?.error?.length) {
+        throw new Error(response?.data?.error);
+      }
+      // console.log("response");
+      // console.log(response);
+
+      // if (!!response?.serverError) {
+      //   throw new Error("honestly i give up" ?? "");
+      // }
+      // formMethods.reset();
     } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
+      const getMessage = getErrorMessage(error);
+
+      setIsError(getMessage);
+      setTimeout(() => {
+        setIsError("");
+      }, 7000);
     }
   });
 
+  const handleReset = () => formMethods.reset();
   return (
     <FormProvider {...formMethods}>
-      <form
-        onReset={handleReset}
-        onSubmit={handleSubmit}
-        className="w-[21rem] flex flex-col gap-4"
-      >
+      <form onReset={handleReset} onSubmit={handleSubmit} className="w-[21rem] flex flex-col gap-4">
         <Paperback>
+          <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
+          {!!isError?.length && <p className="text-red-400">{isError}</p>}
+
           <h1 className="text-2xl underline">Login Page</h1>
           <RHFtextfield title="Username:" name="username" />
           <RHFtextfield type="password" title="Password:" name="password" />
-          {!isSubmitting ? (
-            <div className="flex flex-row gap-4">
-              <Button
-                type="reset"
-                variant="reset"
-                title="Reset"
-                onClick={handleReset}
-              />
-              <Button
-                disabled={formMethods.formState?.isLoading}
-                variant="primary"
-                type="submit"
-                title="Submit"
-                onClick={handleSubmit}
-              />
-            </div>
-          ) : (
-            <p className="text-center font-bold">Loading...</p>
-          )}
+          <div className="flex flex-row gap-4">
+            <Button type="reset" variant="reset" title="Reset" onClick={handleReset} />
+            <Button
+              disabled={formMethods.formState?.isLoading}
+              variant="primary"
+              type="submit"
+              title="Submit"
+              onClick={handleSubmit}
+            />
+          </div>
         </Paperback>
       </form>
     </FormProvider>

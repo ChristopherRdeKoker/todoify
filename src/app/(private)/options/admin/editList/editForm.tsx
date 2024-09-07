@@ -1,7 +1,8 @@
 "use client";
 import { OptionType } from "@/api/createTodo/createTodoSchema";
-import { getMyTodoList } from "@/app/[userId]/listTodo/actions";
-import { ListItem } from "@/app/[userId]/listTodo/ListItem";
+import { getMyTodoList } from "@/app/(private)/listTodo/actions";
+import { ListItem } from "@/app/(private)/listTodo/ListItem";
+
 import { Dropdown } from "@/components/RHFSelect";
 import { useRouter } from "next/navigation";
 
