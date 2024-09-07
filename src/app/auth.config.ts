@@ -20,6 +20,11 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
+export enum AccountRoleEnum {
+  "admin" = 1,
+  "parent" = 2,
+}
+
 export default {
   providers: [
     CredentialProvider({
@@ -48,7 +53,11 @@ export default {
           }
 
           user = {
-            isParent: userQuery?.data?.is_parent ?? false,
+            roles: userQuery?.data?.account_user_role?.map((i) => ({
+              text: i?.account_role?.role,
+              value: i?.account_role?.id?.toString(),
+            })),
+            // isParent: userQuery?.data?.is_parent ?? false,
             email: userQuery?.data?.username,
             id: userQuery?.data?.id?.toString(),
             image: null,

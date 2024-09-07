@@ -17,6 +17,18 @@ export const findUserByUsername = safeAction
   )
   .action(async ({ parsedInput }) => {
     const user = await prisma.account_user.findFirst({
+      include: {
+        account_user_role: {
+          select: {
+            account_role: {
+              select: {
+                role: true,
+                id: true,
+              },
+            },
+          },
+        },
+      },
       where: {
         username: {
           equals: parsedInput?.username,

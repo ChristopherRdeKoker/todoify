@@ -18,7 +18,7 @@ export default async function RootLayout({
         {children}
       </div>
       <Navbar
-        isParent={session?.userCredentails?.isParent ?? false}
+        roles={session?.userCredentails?.roles ?? []}
         userId={+(session?.userCredentails?.id ?? 0)}
         userName={session?.userCredentails?.name ?? "random weirdo"}
       />
