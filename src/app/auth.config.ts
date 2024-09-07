@@ -2,7 +2,6 @@ import { AuthError, type NextAuthConfig, type User } from "next-auth";
 import { findUserByUsername } from "./action";
 import { LoginSchema } from "@/api/login/loginSchema";
 import CredentialProvider from "next-auth/providers/credentials";
-import { ActionValidationError } from "next-safe-action";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -58,11 +57,7 @@ export default {
 
           return user;
         } catch (error) {
-          // Log the error for debugging
-          // console.error("Authorization error:", error);
           throw new Error(getErrorMessage(error));
-
-          // Return null or handle as necessary
         }
       },
     }),

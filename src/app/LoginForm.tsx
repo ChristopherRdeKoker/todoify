@@ -7,8 +7,6 @@ import { RHFtextfield } from "@/components/RHFTextfield";
 import { Button } from "@/components/Button";
 import { useState } from "react";
 import { LoginHandler } from "./action";
-import { AuthError } from "next-auth";
-import { ActionValidationError } from "next-safe-action";
 import { getErrorMessage } from "./auth.config";
 
 export function LoginForm() {
@@ -26,20 +24,13 @@ export function LoginForm() {
       if (!!response?.data?.error?.length) {
         throw new Error(response?.data?.error);
       }
-      // console.log("response");
-      // console.log(response);
-
-      // if (!!response?.serverError) {
-      //   throw new Error("honestly i give up" ?? "");
-      // }
-      // formMethods.reset();
     } catch (error) {
       const getMessage = getErrorMessage(error);
 
       setIsError(getMessage);
       setTimeout(() => {
         setIsError("");
-      }, 7000);
+      }, 12000);
     }
   });
 
@@ -48,7 +39,7 @@ export function LoginForm() {
     <FormProvider {...formMethods}>
       <form onReset={handleReset} onSubmit={handleSubmit} className="w-[21rem] flex flex-col gap-4">
         <Paperback>
-          <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre>
+          {/* <pre>{JSON.stringify(formMethods.watch(), null, 2)}</pre> */}
           {!!isError?.length && <p className="text-red-400">{isError}</p>}
 
           <h1 className="text-2xl underline">Login Page</h1>
