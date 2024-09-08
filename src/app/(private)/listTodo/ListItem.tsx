@@ -53,7 +53,7 @@ export function ListItem({ input, showIcon, disableSubmit = false }: ListItemPro
     <div
       onClick={handleSubmit}
       className={twMerge(
-        "rounded-md select-none  cursor-pointer flex-col items-center  transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
+        "rounded-md select-none w-[15rem] cursor-pointer flex-col items-center  transform flex grow border-black-600 border-[0.15rem] transition-transform duration-100 active:scale-95 p-2 min-h-[5rem]",
         isCompletedClassname
       )}
     >
