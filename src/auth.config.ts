@@ -1,5 +1,5 @@
 import { AuthError, type NextAuthConfig, type User } from "next-auth";
-import { findUserByUsername } from "./action";
+import { findUserByUsername } from "./app/action";
 import { LoginSchema } from "@/app/api/login/loginSchema";
 import CredentialProvider from "next-auth/providers/credentials";
 

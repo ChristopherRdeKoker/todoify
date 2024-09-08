@@ -7,7 +7,7 @@ import { RHFtextfield } from "@/components/RHFTextfield";
 import { Button } from "@/components/Button";
 import { useState } from "react";
 import { LoginHandler } from "./action";
-import { getErrorMessage } from "./auth.config";
+import { getErrorMessage } from "../auth.config";
 // import { getErrorMessage } from "@/auth.config";
 // import { getErrorMessage } from "./auth.config";
 

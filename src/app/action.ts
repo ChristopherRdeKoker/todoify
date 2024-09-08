@@ -7,7 +7,7 @@ import { safeAction } from "./api/createSafeAction/createSafeAction";
 
 import { redirect } from "next/navigation";
 import { ActionValidationError } from "next-safe-action";
-import { getErrorMessage } from "./auth.config";
+import { getErrorMessage } from "../auth.config";
 import { signIn } from "@/auth";
 // import { getErrorMessage } from "@/auth.config";
 
