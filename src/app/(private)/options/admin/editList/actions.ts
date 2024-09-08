@@ -1,6 +1,6 @@
 "use server";
-import { OptionSchema } from "@/api/createTodo/createTodoSchema";
-import { actionClient } from "@/api/safe-actions/safe-action";
+import { OptionSchema } from "@/app/api/createTodo/createTodoSchema";
+import { actionClient } from "@/app/api/safe-actions/safe-action";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

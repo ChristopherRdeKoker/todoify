@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
-import { createToDoSchema } from "@/api/createTodo/createTodoSchema";
-import { actionClient } from "@/api/safe-actions/safe-action";
+import { createToDoSchema } from "@/app/api/createTodo/createTodoSchema";
+import { actionClient } from "@/app/api/safe-actions/safe-action";
 
 const prisma = new PrismaClient();
 

@@ -1,5 +1,5 @@
 "use client";
-import { AccountRoleEnum } from "@/app/auth.config";
+import { AccountRoleEnum } from "@/app/api/HelpfulEnums";
 import { OptionType } from "../../../global";
 import { NavButtons } from "./NavButtons";
 

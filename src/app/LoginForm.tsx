@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginDefaultValues, LoginSchema } from "@/api/login/loginSchema";
+import { LoginDefaultValues, LoginSchema } from "@/app/api/login/loginSchema";
 import { Paperback } from "@/components/Paperback";
 import { FormProvider, useForm } from "react-hook-form";
 import { RHFtextfield } from "@/components/RHFTextfield";
@@ -8,6 +8,8 @@ import { Button } from "@/components/Button";
 import { useState } from "react";
 import { LoginHandler } from "./action";
 import { getErrorMessage } from "./auth.config";
+// import { getErrorMessage } from "@/auth.config";
+// import { getErrorMessage } from "./auth.config";
 
 export function LoginForm() {
   const [isError, setIsError] = useState("");
@@ -28,9 +30,9 @@ export function LoginForm() {
       const getMessage = getErrorMessage(error);
 
       setIsError(getMessage);
-      setTimeout(() => {
-        setIsError("");
-      }, 12000);
+      // setTimeout(() => {
+      //   setIsError("");
+      // }, 12000);
     }
   });
 

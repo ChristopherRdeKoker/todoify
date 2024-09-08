@@ -4,7 +4,7 @@ import Select, { ActionMeta, MultiValue, SingleValue } from "react-select";
 
 import { twMerge } from "tailwind-merge";
 import StateManagedSelect from "react-select";
-import { OptionType } from "@/api/createTodo/createTodoSchema";
+import { OptionType } from "@/app/api/createTodo/createTodoSchema";
 import { Optional } from "@prisma/client/runtime/library";
 
 interface DropdownProp<TOptionType extends OptionType, TIsMulti extends boolean>

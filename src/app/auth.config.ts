@@ -1,6 +1,6 @@
 import { AuthError, type NextAuthConfig, type User } from "next-auth";
 import { findUserByUsername } from "./action";
-import { LoginSchema } from "@/api/login/loginSchema";
+import { LoginSchema } from "@/app/api/login/loginSchema";
 import CredentialProvider from "next-auth/providers/credentials";
 
 export const getErrorMessage = (error: unknown): string => {
@@ -19,11 +19,6 @@ export const getErrorMessage = (error: unknown): string => {
 
   return message;
 };
-
-export enum AccountRoleEnum {
-  "admin" = 1,
-  "parent" = 2,
-}
 
 export default {
   providers: [

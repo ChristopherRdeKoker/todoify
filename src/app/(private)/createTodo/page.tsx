@@ -4,8 +4,8 @@ import { Container } from "@/components/Container";
 import { CreateForm } from "./CreateForm";
 import { getUserQuery } from "../homepage/actions";
 import { getAllUserOptions } from "./actions";
-import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 export default async function CreateTodo() {
   const session = await auth();

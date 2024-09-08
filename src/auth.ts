@@ -1,6 +1,8 @@
+// import NextAuth from "next-auth";
 import NextAuth from "next-auth";
+import authConfig from "./app/auth.config";
 
-import authConfig from "../app/auth.config";
+// import authConfig from "../app/auth.config";
 
 export interface customError {
   error: string;
@@ -8,6 +10,13 @@ export interface customError {
 }
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  pages: {
+    signIn: "/",
+    signOut: "/",
+  },
+  session: {
+    strategy: "jwt",
+  },
   ...authConfig,
   callbacks: {
     async jwt({ account, token, user }) {

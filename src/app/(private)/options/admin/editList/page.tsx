@@ -2,7 +2,7 @@ import { Dropdown } from "@/components/RHFSelect";
 import { EditFormList } from "./editForm";
 import { getAllUsersListItems } from "./actions";
 import { useState } from "react";
-import { OptionType } from "@/api/createTodo/createTodoSchema";
+import { OptionType } from "@/app/api/createTodo/createTodoSchema";
 import { getREALAllUserOptions } from "@/app/(private)/createTodo/actions";
 import { getMyTodoList } from "@/app/(private)/listTodo/actions";
 type EditListParams = {

@@ -1,5 +1,5 @@
 "use client";
-import { OptionType } from "@/api/createTodo/createTodoSchema";
+import { OptionType } from "@/app/api/createTodo/createTodoSchema";
 import { getMyTodoList } from "@/app/(private)/listTodo/actions";
 import { ListItem } from "@/app/(private)/listTodo/ListItem";
 

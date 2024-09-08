@@ -1,5 +1,5 @@
-import { auth } from "@/app/auth";
-import { AccountRoleEnum } from "@/app/auth.config";
+import { AccountRoleEnum } from "@/app/api/HelpfulEnums";
+import { auth } from "@/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

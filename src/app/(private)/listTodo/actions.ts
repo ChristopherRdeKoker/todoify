@@ -1,6 +1,6 @@
 "use server";
 
-import { actionClient } from "@/api/safe-actions/safe-action";
+import { actionClient } from "@/app/api/safe-actions/safe-action";
 import prisma from "../../../../database/prisma/prisma";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";

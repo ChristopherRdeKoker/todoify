@@ -1,6 +1,7 @@
 "use client";
 
-import { DaysoftheWeekEnum } from "@/api/enums";
+import { DaysoftheWeekEnum } from "@/app/api/enums";
+// import { DaysoftheWeekEnum } from "@/api/enums";
 import { Dispatch, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
