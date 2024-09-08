@@ -3,11 +3,11 @@
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
 import { createToDoSchema } from "@/app/api/createTodo/createTodoSchema";
-import { actionClient } from "@/app/api/safe-actions/safe-action";
+import { safeAction } from "../../api/createSafeAction/createSafeAction";
 
 const prisma = new PrismaClient();
 
-export const getAllUserOptions = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+export const getAllUserOptions = safeAction.schema(z.coerce.number()).action(async ({ parsedInput }) => {
   const userId = parsedInput;
 
   const allUsers = await prisma.account_user.findMany({
@@ -30,7 +30,7 @@ export const getAllUserOptions = actionClient.schema(z.coerce.number()).action(a
   };
 });
 
-export const getREALAllUserOptions = actionClient.action(async () => {
+export const getREALAllUserOptions = safeAction.action(async () => {
   const allUsers = await prisma.account_user.findMany({
     select: {
       id: true,
@@ -46,7 +46,7 @@ export const getREALAllUserOptions = actionClient.action(async () => {
   };
 });
 
-export const createToDoItem = actionClient.schema(createToDoSchema).action(async ({ parsedInput }) => {
+export const createToDoItem = safeAction.schema(createToDoSchema).action(async ({ parsedInput }) => {
   const { createdBy, days_array, id, intendedFor, isRepeatable, isUrgent, title, hourOptions, timePeriod } =
     parsedInput;
   const todayDate = new Date()?.getDay();

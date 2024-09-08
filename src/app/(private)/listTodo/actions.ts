@@ -1,11 +1,11 @@
 "use server";
 
-import { actionClient } from "@/app/api/safe-actions/safe-action";
 import prisma from "../../../../database/prisma/prisma";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { safeAction } from "@/app/api/createSafeAction/createSafeAction";
 
-export const captureList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+export const captureList = safeAction.schema(z.coerce.number()).action(async ({ parsedInput }) => {
   const listId = parsedInput;
   const result = await prisma.to_do_item.update({
     where: {
@@ -27,7 +27,7 @@ export const captureList = actionClient.schema(z.coerce.number()).action(async (
   };
 });
 
-export const getMyTodoList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+export const getMyTodoList = safeAction.schema(z.coerce.number()).action(async ({ parsedInput }) => {
   const userId = parsedInput;
   const today = new Date().getDay();
 
@@ -68,7 +68,7 @@ export const getMyTodoList = actionClient.schema(z.coerce.number()).action(async
   };
 });
 
-export const deleteToDoList = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+export const deleteToDoList = safeAction.schema(z.coerce.number()).action(async ({ parsedInput }) => {
   const delId = parsedInput;
 
   const result = await prisma.to_do_item.delete({

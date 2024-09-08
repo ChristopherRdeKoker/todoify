@@ -1,11 +1,11 @@
 "use server";
+import { safeAction } from "@/app/api/createSafeAction/createSafeAction";
 import { OptionSchema } from "@/app/api/createTodo/createTodoSchema";
-import { actionClient } from "@/app/api/safe-actions/safe-action";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getAllUsersListItems = actionClient.schema(OptionSchema.nullable()).action(async ({ parsedInput }) => {
+export const getAllUsersListItems = safeAction.schema(OptionSchema.nullable()).action(async ({ parsedInput }) => {
   if (!parsedInput?.value) return { error: "No user id found" };
   const userId = +parsedInput?.value;
   const today = new Date().getDay();

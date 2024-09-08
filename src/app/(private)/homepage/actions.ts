@@ -1,8 +1,8 @@
 "use server";
 
-import { actionClient } from "@/app/api/safe-actions/safe-action";
 import prisma from "../../../../database/prisma/prisma";
 import { z } from "zod";
+import { safeAction } from "@/app/api/createSafeAction/createSafeAction";
 
 // export async function getUserQuery(input: number) {
 //   try {
@@ -29,7 +29,7 @@ import { z } from "zod";
 //   }
 // }
 
-export const getUserQuery = actionClient.schema(z.coerce.number()).action(async ({ parsedInput }) => {
+export const getUserQuery = safeAction.schema(z.coerce.number()).action(async ({ parsedInput }) => {
   const userId = parsedInput;
 
   const userQuery = await prisma.account_user?.findFirst({
